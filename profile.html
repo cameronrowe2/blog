@@ -1,0 +1,53 @@
+<body>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="jquery.min.js"></script>
+    <script src="header.js"></script>
+    <script src="show_email.js"></script>
+    <script src="create_post.js"></script>
+    <script src="upload_profile.js"></script>
+    <script>
+      $( document ).ready(function() {
+
+        var user = false;
+        var url_string = window.location.href
+        var url = new URL(url_string);
+        var id = url.searchParams.get("id");
+
+        if(id == null) {
+          id = localStorage.id
+          user = true
+        }
+
+        $.ajax({
+          type: 'GET',
+          url: "get_profile.php",
+          dataType: "json",
+          data: {
+            id: id
+          }
+        }).done(function(data){
+          console.log(data)
+          $('#profile').append("<div><label>email:</label> "+data.profile.email+"</div>")
+          $('#profile').append("<div><label>username:</label> "+data.profile.username+"</div>")
+          if(data.profile.image == null){
+            $('#profile').append("<div><label>Image</label><img id='profile_image' width='200' height='200' src='default.png'></div>")
+          } else {
+            $('#profile').append("<div><label>Image</label><img id='profile_image' width='200' height='200' src='"+data.profile.image+"'></div>")
+          }
+          if(user) {
+            $('#profile').append("<input type='file' id='profile_img'><button onclick='uploadProfile()'>Upload</button>")
+          }
+
+        });
+
+      })
+    </script>
+  </head>
+  <body>
+    <div id="header">
+    </div>
+    <div id="profile">
+    </div>
+  </body>
+</body>

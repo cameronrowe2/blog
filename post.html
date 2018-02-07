@@ -1,0 +1,95 @@
+<body>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="jquery.min.js"></script>
+    <script src="header.js"></script>
+    <script src="show_email.js"></script>
+    <script src="create_post.js"></script>
+    <script>
+    function add_comment(){
+      var text = $('#comment').val();
+
+      var url_string = window.location.href
+      var url = new URL(url_string);
+      var id = url.searchParams.get("id");
+
+      $.ajax({
+        type: 'GET',
+        url: "add_comment.php",
+        dataType: "json",
+        data: {
+          text: text,
+          pid: id,
+          aid: localStorage.id
+        }
+      }).done(function(data){
+        console.log(data)
+        // $('#comments').prepend("<div>"+data.username+" <a>"+text+"</a></div>")
+        $('#comments').prepend("<div><a href='profile.html?id="+data.aid+"'>"+data.username+"</a>: "+text+"</div>")
+      });
+    }
+
+      $( document ).ready(function() {
+        var url_string = window.location.href
+        var url = new URL(url_string);
+        var id = url.searchParams.get("id");
+
+
+
+        $.ajax({
+          type: 'GET',
+          url: "get_post.php",
+          dataType: "json",
+          data: {
+            id: id
+          }
+        }).done(function(data){
+          console.log(data)
+          var v = data.post
+
+          var profile_image = (v.profile_image == null ? "default.png" : v.profile_image)
+
+          $('#feed').append(
+            "<div class='feed_post'><h3 onclick='getPost("+v.ID+")' id='"+v.ID+"'>"+v.title+"</h3>" +
+            "<img height='300' src='"+v.image+"'>" +
+            "<p><a href='profile.html?id="+v.aid+"'><img width='20' height='20' src='"+profile_image+"'>"+v.username+"</a>: "+v.text+"</p></div>"
+          )
+
+          $.ajax({
+            type: 'GET',
+            url: "get_comments.php",
+            dataType: "json",
+            data: {
+              id: id
+            }
+          }).done(function(data){
+            if(data.comments.length == 0) {
+
+            } else {
+              // show comments
+              console.log(data.comments)
+              data.comments.forEach(function(v, i, a){
+                $('#comments').prepend("<div><a href='profile.html?id="+v.aid+"'>"+v.username+"</a>: "+v.text+"</div>")
+              })
+            }
+          })
+        })
+      })
+    </script>
+  </head>
+  <body>
+    <div id="header">
+    </div>
+    <div id="feed">
+    </div>
+    <div id="comments">
+    </div>
+    <div id="make_comment">
+      <div>
+        <p>Please make a comment:</p>
+        <input type="text" id="comment" placeholder="Comment...">
+        <button onclick="add_comment()">Add Comment</button>
+      </div>
+    </div>
+  </body>
+</body>

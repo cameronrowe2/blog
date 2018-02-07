@@ -1,0 +1,70 @@
+<body>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery.min.js"></script>
+    <script src="header.js"></script>
+    <script src="show_email.js"></script>
+    <script src="create_post.js"></script>
+    <script>
+      $( document ).ready(function() {
+        if(localStorage.feed_page == null) {
+          localStorage.feed_page = 0
+        }
+
+        $.ajax({
+          type: 'GET',
+          url: "feed.php",
+          dataType: "json",
+          data: {
+            page: localStorage.feed_page
+          }
+        }).done(function(data){
+          console.log(data)
+          data.posts.forEach(function(v,i,a){
+            console.log(v)
+
+            var profile_image = (v.profile_image == null ? "default.png" : v.profile_image)
+
+            $('#feed').append(
+              "<div class='feed_post'><h3 onclick='getPost("+v.ID+")' id='"+v.ID+"'>"+v.title+"</h3>" +
+              "<img height='300' src='"+v.image+"'>" +
+              "<p><a href='profile.html?id="+v.aid+"'><img width='20' height='20' src='"+profile_image+"'>"+v.username+"</a>: "+v.text+"</p></div>"
+            )
+          })
+        })
+
+        $.ajax({
+          type: 'GET',
+          url: "get_feed_pages.php",
+          dataType: "json"
+        }).done(function(data){
+          console.log(data)
+          var pages = Math.ceil(data.pages);
+          for(var i = 1; i <= pages; i++){
+            $('#pagination').append("<a class='pagination' onclick='page("+i+")'>"+i+"</a> ")
+          }
+
+        })
+      })
+
+      function getPost(id){
+        window.location.href = '/post.html?id='+id
+      }
+
+      function page(val){
+        console.log(val)
+        localStorage.feed_page = val -1
+        window.location.reload()
+      }
+    </script>
+  </head>
+  <body>
+    <div id="header">
+    </div>
+    <div id="feed">
+    </div>
+    <div id="pagination">
+    </div>
+  </body>
+</body>
