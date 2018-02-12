@@ -152,6 +152,11 @@ img {
   padding-left: 20px;
   font-size: 20px;
   font-family: sans-serif;
+  text-align: center;
+}
+
+#profile_img, #profile_image {
+  margin: auto;
 }
 
 #profile div {
