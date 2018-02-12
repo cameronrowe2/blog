@@ -22,20 +22,24 @@ body {
 
 #lo_header {
   text-align: center;
+  background-color: lightblue;
 }
 
 .lo_header {
   display: inline;
   padding-right: 10px;
   padding-left: 10px;
-  margin-right: 10px;
   width: 100px;
-  border: rgb(115,115,255) solid;
+  border-left: rgb(115,115,255) solid;
   font-size: 20px;
   text-decoration:  none;
-  background-color: lightblue;
   cursor: pointer;
   color: black;
+  background-color: lightblue;
+}
+
+.lo_header:last-child {
+  border-right: rgb(115,115,255) solid;
 }
 
 #li {
@@ -314,7 +318,16 @@ button {
 }
 
 @media only screen and (max-width: 600px) {
-    #header div {
+    #header div, .lo_header {
         display: block;
+        border: rgb(115,115,255) solid;
+        width: 200px;
+        font-size: 25px;
+
+    }
+
+    #header, #lo_header {
+      margin: auto;
+      width: 200px;
     }
 }

@@ -6,10 +6,10 @@ var Header = {
 
   html: function(){
     $('#header').html("<div id=\"h_home\">Home</div>" +
-    "<div id=\"h_create_post\">Create Post</div>" +
-    "<div id=\"h_notifications\"></div>" +
     "<div id=\"h_search\">Search</div>" +
     "<div id=\"h_profile\"></div>" +
+    "<div id=\"h_notifications\"></div>" +
+    "<div id=\"h_create_post\">Create Post</div>" +
     "<div id=\"h_logout\">Logout</div>"
   )
   },
