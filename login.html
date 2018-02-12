@@ -3,36 +3,49 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="jquery.min.js"></script>
     <script>
-      $( document ).ready(function() {
-        $('#submit').on('click', function(){
-          var email = $('#email').val()
-          var password = $('#password').val()
+      function login(){
+        var email = $('#email').val()
+        var password = $('#password').val()
 
-          $.ajax({
-            type: 'GET',
-            url: "login.php",
-            dataType: "json",
-            data: {
-              email: email,
-              password: password
-            }
-          }).done(function(data){
-            if(data.success){
-              console.log(data)
-              localStorage.id = data.id
-              window.location.href = "/"
-            } else {
-              console.log(data)
-            }
-          })
+        $.ajax({
+          type: 'GET',
+          url: "login.php",
+          dataType: "json",
+          data: {
+            email: email,
+            password: password
+          }
+        }).done(function(data){
+          if(data.success){
+            console.log(data)
+            localStorage.id = data.id
+            window.location.href = "/"
+          } else {
+            console.log(data)
+          }
+        })
+      }
+
+      $( document ).ready(function() {
+
+        $('#submit').on('click', function(){
+          login();
+        })
+
+        $('#password').on('keyup', function(e){
+          if(e.keyCode == 13) {
+            login();
+          }
         })
       })
     </script>
   </head>
   <body>
-    <a href="login.html">Login</a>
-    <a href="create_account.html">Create Account</a>
-    <a href="forgot_password.html">Forgot Password</a>
+    <div id="lo_header">
+      <a class="lo_header" href="login.html">Login</a>
+      <a class="lo_header" href="create_account.html">Create Account</a>
+      <a class="lo_header" href="forgot_password.html">Forgot Password</a>
+    </div>
     <div id=li>
       <input type="text" id="email" placeholder="email">
       <input type="password" id="password" placeholder="password">

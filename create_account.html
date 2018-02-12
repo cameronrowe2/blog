@@ -3,41 +3,54 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="jquery.min.js"></script>
     <script>
+      function ca() {
+        var email = $('#email').val()
+        var username = $('#username').val()
+        var password = $('#password').val()
+
+        $.ajax({
+          type: 'GET',
+          url: "create_account.php",
+          dataType: "json",
+          data: {
+            email: email,
+            uname: username,
+            password: password
+          }
+        }).done(function(data){
+          if(data.success) {
+            $('#message').html('Account created successfully <a href="login.html">Login<a>')
+            $('#email').val('')
+            $('#username').val('')
+            $('#password').val('')
+          } else {
+            console.log(data)
+            $('#message').text('Error creating account')
+          }
+
+        })
+      }
+
       $( document ).ready(function() {
+
+        $('#password').on('keyup', function(e){
+          if(e.keyCode == 13) {
+            ca()
+          }
+        })
+
         $('#submit').on('click', function(){
-          var email = $('#email').val()
-          var username = $('#username').val()
-          var password = $('#password').val()
-
-          $.ajax({
-            type: 'GET',
-            url: "create_account.php",
-            dataType: "json",
-            data: {
-              email: email,
-              uname: username,
-              password: password
-            }
-          }).done(function(data){
-            if(data.success) {
-              $('#message').html('Account created successfully <a href="login.html">Login<a>')
-              $('#email').val('')
-              $('#username').val('')
-              $('#password').val('')
-            } else {
-              console.log(data)
-              $('#message').text('Error creating account')
-            }
-
-          })
+          ca()
         })
       })
     </script>
   </head>
   <body>
-    <a href="login.html">Login</a>
-    <a href="create_account.html">Create Account</a>
-    <a href="forgot_password.html">Forgot Password</a>
+    <div id="lo_header">
+      <a href="login.html">Login</a>
+      <a href="create_account.html">Create Account</a>
+      <a href="forgot_password.html">Forgot Password</a>
+    </div>
     <div id="ca">
       <input type="text" id="email" placeholder="email">
       <input type="text" id="username" placeholder="username">

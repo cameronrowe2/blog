@@ -8,7 +8,8 @@ var Header = {
     $('#header').html("<div id=\"h_home\">Home</div>" +
     "<div id=\"h_create_post\">Create Post</div>" +
     "<div id=\"h_logout\">Logout</div>" +
-    "<div id=\"h_profile\"></div>")
+    "<div id=\"h_profile\"></div>" +
+    "<div id=\"h_notifications\"></div>")
   },
 
   events: function(){
@@ -33,7 +34,7 @@ var Header = {
     })
 
     $('#h_logout').on('click', function(){
-      localStorage.id = null;
+      delete localStorage.id;
       $.ajax({
         type: 'GET',
         url: "logout.php",
@@ -46,6 +47,10 @@ var Header = {
 
     $('#h_profile').on('click', function(){
       window.location.href = "/profile.html"
+    })
+
+    $('#h_notifications').on('click', function(){
+      window.location.href = "/notifications.html"
     })
   }
 }

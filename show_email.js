@@ -1,4 +1,9 @@
 $( document ).ready(function() {
+
+  if(localStorage.id == "null" || typeof localStorage.id == "undefined") {
+    window.location.href = "login.html"
+  }
+
   $.ajax({
     type: 'GET',
     url: "get_profile.php",

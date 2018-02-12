@@ -26,6 +26,7 @@
         console.log(data)
         // $('#comments').prepend("<div>"+data.username+" <a>"+text+"</a></div>")
         $('#comments').prepend("<div><a href='profile.html?id="+data.aid+"'>"+data.username+"</a>: "+text+"</div>")
+        $('#comment').val('')
       });
     }
 
@@ -34,7 +35,11 @@
         var url = new URL(url_string);
         var id = url.searchParams.get("id");
 
-
+        $('#comment').on('keyup', function(e){
+          if (e.keyCode == 13) {
+              add_comment();
+          }
+        })
 
         $.ajax({
           type: 'GET',

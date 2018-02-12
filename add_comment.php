@@ -23,6 +23,14 @@ $text = $mysqli->escape_string($text);
 if ($result = $mysqli->query("INSERT INTO comments (pid, text, aid) VALUES ('$pid', '$text', '$aid')")) {
   $ID = $mysqli->insert_id;
 
+  // get account id
+  $result = $mysqli->query("SELECT * from posts where ID = $pid");
+  $data = $result->fetch_assoc();
+  $post_aid = $data['aid'];
+
+  // add notification
+  $result = $mysqli->query("INSERT INTO notifications (pid, aid, commenter) VALUES ('$pid', '$post_aid', '$aid')");
+
   $result = $mysqli->query("SELECT * from accounts where ID = $aid");
   $data = $result->fetch_assoc();
 

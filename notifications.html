@@ -1,0 +1,47 @@
+<body>
+  <head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="jquery.min.js"></script>
+    <script src="header.js"></script>
+    <script src="show_email.js"></script>
+    <script src="create_post.js"></script>
+    <script src="get_notifications.js"></script>
+    <script>
+      $( document ).ready(function() {
+        $.ajax({
+          url: 'seen_notifications.php',
+          type: 'get',
+          dataType: 'json',
+          data: {
+            id: localStorage.id
+          }
+        }).done(function(data){
+          console.log(data)
+        })
+
+        $.ajax({
+          url: 'get_all_notifications.php',
+          type: "get",
+          dataType: 'json',
+          data: {
+            id: localStorage.id
+          }
+        }).done(function(data){
+          console.log(data)
+          if(data.success) {
+            data.notifications.forEach(function(v,i,a) {
+              $('#notifications').append("<div><a href=\"post.html?id=" +v.pid+ "\">"+v.username+" Commented on your post</a></div>")
+            })
+          }
+        })
+      })
+    </script>
+  </head>
+  <body>
+    <div id="header">
+    </div>
+    <div id="notifications">
+    </div>
+  </body>
+</body>
