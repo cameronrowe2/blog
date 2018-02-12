@@ -14,6 +14,7 @@
         var url_string = window.location.href
         var url = new URL(url_string);
         var id = url.searchParams.get("id");
+        var page = url.searchParams.get("page");
 
         if(id == null) {
           id = localStorage.id
@@ -41,14 +42,60 @@
           }
 
         });
+        $.ajax({
+          type: 'GET',
+          url: "get_user_posts.php",
+          dataType: "json",
+          data: {
+            id: id,
+            page: page
+          }
+        }).done(function(data){
+          console.log(data)
+          data.posts.forEach(function(v,i,a){
+            console.log(v)
 
+            var profile_image = (v.profile_image == null ? "default.png" : v.profile_image)
+
+            $('#feed').append(
+              "<div class='feed_post'><h3 onclick='getPost("+v.ID+")' id='"+v.ID+"'>"+v.title+"</h3>" +
+              "<img height='300' src='"+v.image+"'>" +
+              "<p><a href='profile.html?id="+v.aid+"'><img width='20' height='20' src='"+profile_image+"'>"+v.username+"</a>: "+v.text+"</p></div>"
+            )
+          })
+        });
+
+        $.ajax({
+          type: 'GET',
+          url: "get_user_feed_pages.php",
+          dataType: "json",
+          data: {
+            id: id
+          }
+        }).done(function(data){
+          console.log(data)
+          var pages = Math.ceil(data.pages);
+          for(var i = 1; i <= pages; i++){
+            $('#pagination').append("<a class='pagination' onclick='page("+i+")'>"+i+"</a> ")
+          }
+
+        })
       })
+
+      function page(val){
+        console.log(val)
+        window.location.href = "profile.html?page="+ (val-1)
+      }
     </script>
   </head>
   <body>
     <div id="header">
     </div>
     <div id="profile">
+    </div>
+    <div id="feed">
+    </div>
+    <div id="pagination">
     </div>
   </body>
 </body>
