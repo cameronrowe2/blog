@@ -40,6 +40,7 @@ body {
 
 #li {
   margin: auto;
+  width: 200px;
 }
 
 #notifications {
@@ -81,8 +82,8 @@ h3 {
 #li {
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
+  /*margin-left: 20px;
+  margin-right: 20px;*/
   font-size: 15px;
 }
 
@@ -183,10 +184,10 @@ img {
 }
 
 #ca {
+  margin: auto;
+  width: 200px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 20px;
-  margin-right: 20px;
   font-size: 20px;
 }
 
