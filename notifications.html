@@ -33,6 +33,10 @@
             data.notifications.forEach(function(v,i,a) {
               $('#notifications').append("<div><a href=\"post.html?id=" +v.pid+ "\">"+v.username+" Commented on your post</a></div>")
             })
+
+            if(data.notifications.length == 0) {
+              $('#notifications').append('no notifications')
+            }
           }
         })
       })
