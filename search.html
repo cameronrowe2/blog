@@ -1,0 +1,90 @@
+<body>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="jquery.min.js"></script>
+    <script src="header.js"></script>
+    <script src="show_email.js"></script>
+    <script src="create_post.js"></script>
+    <script src="get_notifications.js"></script>
+    <script>
+      function search(str, page) {
+
+        $.ajax({
+          url: 'search.php',
+          type: 'get',
+          dataType: 'json',
+          data: {
+            str: str,
+            page: page
+          }
+        }).done(function(data){
+          console.log(data)
+          $('#feed').empty()
+          data.posts.forEach(function(v,i,a){
+            console.log(v)
+
+            var profile_image = (v.profile_image == null ? "default.png" : v.profile_image)
+
+            $('#feed').append(
+              "<div class='feed_post'><h3 onclick='getPost("+v.ID+")' id='"+v.ID+"'>"+v.title+"</h3>" +
+              "<img height='300' src='"+v.image+"'>" +
+              "<p><a href='profile.html?id="+v.aid+"'><img width='20' height='20' src='"+profile_image+"'>"+v.username+"</a>: "+v.text+"</p></div>"
+            )
+          })
+        })
+
+        $.ajax({
+          type: 'GET',
+          url: "get_search_feed_pages.php",
+          dataType: "json",
+          data: {
+            str: str
+          }
+        }).done(function(data){
+          console.log(data)
+          var pages = Math.ceil(data.pages);
+          $('#pagination').empty();
+          for(var i = 1; i <= pages; i++){
+            $('#pagination').append("<a class='pagination' onclick='page("+i+")'>"+i+"</a> ")
+          }
+
+        })
+      }
+
+      $( document ).ready(function() {
+        $('#search_input').on('keyup', function(){
+          var str = $('#search_input').val();
+          search(str, 0)
+        })
+
+        var url_string = window.location.href
+        var url = new URL(url_string);
+        var str = url.searchParams.get("str");
+        var page = url.searchParams.get("page");
+
+        if(str && page) {
+          $('#search_input').val(str)
+          search(str, page)
+        }
+      })
+
+      function page(val){
+        console.log(val)
+        var str = $('#search_input').val()
+        window.location.href = "search.html?page=" + (val-1) + "&str=" + str
+      }
+    </script>
+  </head>
+  <body>
+    <div id="header">
+    </div>
+    <div id="search">
+      <input type="text" id="search_input">
+    </div>
+    <div id="feed">
+    </div>
+    <div id="pagination">
+    </div>
+  </body>
+</body>

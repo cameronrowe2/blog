@@ -8,6 +8,7 @@ var Header = {
     $('#header').html("<div id=\"h_home\">Home</div>" +
     "<div id=\"h_create_post\">Create Post</div>" +
     "<div id=\"h_notifications\"></div>" +
+    "<div id=\"h_search\">Search</div>" +
     "<div id=\"h_profile\"></div>" +
     "<div id=\"h_logout\">Logout</div>"
   )
@@ -48,6 +49,10 @@ var Header = {
 
     $('#h_profile').on('click', function(){
       window.location.href = "/profile.html"
+    })
+
+    $('#h_search').on('click', function(){
+      window.location.href = "/search.html"
     })
 
     $('#h_notifications').on('click', function(){
