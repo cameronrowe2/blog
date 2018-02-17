@@ -14,8 +14,8 @@ if ($mysqli->connect_error) {
             . $mysqli->connect_error);
 }
 
-$id = $mysqli->escape_string($id)
-$image = $mysqli->escape_string($image)
+$id = $mysqli->escape_string($id);
+$image = $mysqli->escape_string($image);
 
 if ($result = $mysqli->query("UPDATE accounts SET image='$image' WHERE ID = $id")) {
   echo json_encode(["success" => true]);
