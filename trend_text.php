@@ -33,7 +33,7 @@ $start = 0;
 // find N's side by side, and set as trends
 for($i = 1; $i < strlen($words); $i++){
   if($arr[$i] === "O" && $arr[$i-1] === "N")
-    $trends[] = addTrend($words, $start, $i)
+    $trends[] = addTrend($words, $start, $i);
   if($arr[$i] === "N" && $arr[$i-1] === "O")
     $start = $i;
 
