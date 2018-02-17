@@ -65,7 +65,8 @@ h3 {
 }
 
 #feed > div > img {
-  max-width: 500px;
+  max-width: 70%;
+  height: auto;
 }
 
 .feed_post > h3:hover{
@@ -98,7 +99,8 @@ h3 {
 
 #comments > div {
   margin: auto;
-  width: 400px
+  width: 70%;
+  max-width: 400px;
 }
 
 img {
@@ -259,7 +261,8 @@ button {
 }
 
 #comment {
-  width: 300px;
+  width: 50%;
+  margin-bottom: 20px;
 }
 
 #profile_image {
@@ -317,17 +320,51 @@ button {
   margin-bottom: 10px;
 }
 
+.ri {
+  max-width: 100%;
+  width: 100%;
+}
+
+#search_input {
+  margin-top: 30px;
+  /* text-align: center; */
+  margin-left: 15px;
+}
+
+.notification a {
+  text-decoration: none;
+}
+
+.notification a:hover {
+  text-decoration: underline;
+}
+
+.notification {
+  padding-bottom: 6px;
+  border-bottom: rgb(200,200,200) solid 1px;
+}
+
+.notification:first-child {
+  padding-top: 6px;
+}
+
+body, html { overflow-x:hidden; }
+
 @media only screen and (max-width: 600px) {
     #header div, .lo_header {
         display: block;
-        border: rgb(115,115,255) solid;
-        width: 200px;
+        /* border-top: rgb(115,115,255) solid; */
+        border-bottom: rgb(115,115,255) solid;
+        border-left: none;
+        border-right: none;
+        width: 100%;
         font-size: 25px;
+        padding: 0;
 
     }
 
     #header, #lo_header {
       margin: auto;
-      width: 200px;
+      width: 100%;
     }
 }
