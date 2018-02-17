@@ -2,6 +2,8 @@
 
 session_start();
 
+require 'config.php';
+
 $text = $_POST['text'];
 $title = $_POST['title'];
 $image_url = $_POST['image_url'];
@@ -27,7 +29,7 @@ if($aid == "") {
   exit();
 }
 
-$mysqli = new mysqli('localhost', 'root2', 'root2', 'blog');
+$mysqli = new mysqli(HOST, USERNAME, PASSWORD, DATABASE);
 
 if ($mysqli->connect_error) {
     die('Connect Error (' . $mysqli->connect_errno . ') '

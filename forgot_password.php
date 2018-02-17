@@ -2,6 +2,8 @@
 
 session_start();
 
+require 'config.php';
+
 $email = $_GET['email'];
 
 if($email == "") {
@@ -15,7 +17,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
   exit();
 }
 
-$mysqli = new mysqli('localhost', 'root2', 'root2', 'blog');
+$mysqli = new mysqli(HOST, USERNAME, PASSWORD, DATABASE);
 
 if ($mysqli->connect_error) {
     die('Connect Error (' . $mysqli->connect_errno . ') '

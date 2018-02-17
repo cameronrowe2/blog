@@ -2,6 +2,8 @@
 
 session_start();
 
+require 'config.php';
+
 $email = $_GET['email'];
 $uname = $_GET['uname'];
 $password = $_GET['password'];
@@ -41,7 +43,7 @@ if(strlen($password) < 6) {
 
 $password_hash = password_hash($password, PASSWORD_BCRYPT);
 
-$mysqli = new mysqli('localhost', 'root2', 'root2', 'blog');
+$mysqli = new mysqli(HOST, USERNAME, PASSWORD, DATABASE);
 
 if ($mysqli->connect_error) {
     die('Connect Error (' . $mysqli->connect_errno . ') '

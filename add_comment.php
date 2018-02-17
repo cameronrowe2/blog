@@ -2,6 +2,8 @@
 
 session_start();
 
+require 'config.php';
+
 $text = $_GET['text'];
 $pid = $_GET['pid'];
 $aid = $_GET['aid'];
@@ -11,7 +13,7 @@ if(strlen($text) == 0){
   exit();
 }
 
-$mysqli = new mysqli('localhost', 'root2', 'root2', 'blog');
+$mysqli = new mysqli(HOST, USERNAME, PASSWORD, DATABASE);
 
 if ($mysqli->connect_error) {
     die('Connect Error (' . $mysqli->connect_errno . ') '
@@ -19,6 +21,8 @@ if ($mysqli->connect_error) {
 }
 
 $text = $mysqli->escape_string($text);
+$pid = $mysqli->escape_string($pid);
+$aid = $mysqli->escape_string($aid);
 
 if ($result = $mysqli->query("INSERT INTO comments (pid, text, aid) VALUES ('$pid', '$text', '$aid')")) {
   $ID = $mysqli->insert_id;

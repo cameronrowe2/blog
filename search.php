@@ -2,11 +2,13 @@
 
 session_start();
 
+require 'config.php';
+
 $str = $_GET['str'];
 $page = $_GET['page'];
 $offset = $page * 10;
 
-$mysqli = new mysqli('localhost', 'root2', 'root2', 'blog');
+$mysqli = new mysqli(HOST, USERNAME, PASSWORD, DATABASE);
 
 if ($mysqli->connect_error) {
     die('Connect Error (' . $mysqli->connect_errno . ') '

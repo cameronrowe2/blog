@@ -2,7 +2,9 @@
 
 session_start();
 
-$mysqli = new mysqli('localhost', 'root2', 'root2', 'blog');
+require 'config.php';
+
+$mysqli = new mysqli(HOST, USERNAME, PASSWORD, DATABASE);
 
 if ($mysqli->connect_error) {
     die('Connect Error (' . $mysqli->connect_errno . ') '
